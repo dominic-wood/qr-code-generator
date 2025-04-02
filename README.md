@@ -45,7 +45,7 @@ A simple Python application for generating QR codes with custom styles, template
 1. Run the application
 
    ```bash
-   python qr_generator.py
+   python app.py
    ```
 2. Enter the content you want to encode:
     - URLs (`https://`)
