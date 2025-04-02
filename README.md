@@ -15,6 +15,12 @@ A simple Python application for generating QR codes with custom styles, template
 - History panel keeps track of recently generated QR codes
 - GUI built with ttkbootstrap for a sleek, modern UI
 
+
+## Project Structure
+The project is organised into two main modules:
+- `qr-generator.py`: Contains the core logic for generating QR codes usign the `qrcode` and `pillow` libraries, along with a simplified SVG export function.
+- `app.py`: Houses the graphical user interface with `tkinter` and `ttkbootstrap`. This module manages user interactions, including content prefix management, design customisation, history mangagment, and clipboard operations.
+
 ## Requirements
 
 - Python 3.6+
@@ -25,11 +31,11 @@ A simple Python application for generating QR codes with custom styles, template
   - `svgwrite`
   - `requests` 
 
-  You may also require `tkinter` (usually included in Python)
+- **NOTE**: `tkinter` is usually bunded with Python. For enhanced clipboard functionality on Windows, consider installing `pywin32`. 
 
 ## Installation
 
-1. Clone this repository:
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/jobbieontheknee/qr-code-generator.git
@@ -38,7 +44,11 @@ A simple Python application for generating QR codes with custom styles, template
 2. Install required packages:
 
    ```bash
-   pip install qrcode pillow
+   pip install qrcode pillow ttkbootstrap svgwrite requests
+   ```
+   *Optional (for clipboard support on Windows)*
+   ```bash
+   pip install pywin32
    ```
 
 ## Usage
@@ -47,19 +57,22 @@ A simple Python application for generating QR codes with custom styles, template
    ```bash
    python app.py
    ```
-2. Enter the content you want to encode:
-    - URLs (`https://`)
-    - Email addresses (`mailto:`)
-    - Phone numbers (`tel:`)
-    - WiFi config (use the WiFi button)
-3. Customise apperance
-    * Foreground/background colours (live swatch shown on button)
-    * QR size (1-20)
-    * Error correction (Low, Medium, High, Highest)
-    * Optional: choose a template or upload a logo
-4. Click "**Generate**" to preview the QR code
-5. Save, copy, or test your QR code from the preview panel
-
+2. **Enter Content**
+    - Type or paste the content you want to encode.
+    - Use the quick buttons to clear the text box and insert the correct prefic (e.g., `https://`, `mailto:`, `tel:`) or configure WiFi credentials.
+3. **Customise Appearance**
+    - Adjust foreground and background colours using the visual colour pickers.
+    - Set QR size (1-20) and error correction level.
+    - Optionally select a built-in template or upload a logo.
+4. **Generate and Preview**
+   - Click **Generate** to preview the QR code in the live preview panel.
+   - The preview panel displays additional metadata such as size and the generation timestamp.  
+5. **Save, Copy or Test**
+   - Save the QR code as PNG, JPEG, SVG or PDF.
+   - Copy the QR code image to the clipboard. 
+   - Double-click a history entry to recall a previously generated QR code.
+   - Use the **Test QR Code** button to open the URL in your browser or display the content.
+   
 ## Customisation Options
 | Parameter | Description | Default Value |
 | :--- | :--- | :--- |

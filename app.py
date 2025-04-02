@@ -17,6 +17,7 @@ class QRGeneratorApp:
         self.root.geometry("800x900")
         self.root.resizable(True, True)
         self.root.minsize(700, 800)
+        self.history_data = {}
 
         # Instance variables
         self.generated_img = None
@@ -71,11 +72,11 @@ class QRGeneratorApp:
         quick_btns = tb.Frame(url_frame)
         quick_btns.pack(fill="x", pady=(5, 0))
         btn_width = 5
-        tb.Button(quick_btns, text="URL", command=lambda: self.url_entry.insert("end", "https://"),
+        tb.Button(quick_btns, text="URL", command=lambda: self.set_content_prefix("https://"),
                   bootstyle="outline", width=btn_width).pack(side="left", padx=2)
-        tb.Button(quick_btns, text="Email", command=lambda: self.url_entry.insert("end", "mailto:"),
+        tb.Button(quick_btns, text="Email", command=lambda: self.set_content_prefix("mailto:"),
                   bootstyle="outline", width=btn_width).pack(side="left", padx=2)
-        tb.Button(quick_btns, text="Phone", command=lambda: self.url_entry.insert("end", "tel:"),
+        tb.Button(quick_btns, text="Phone", command=lambda: self.set_content_prefix("tel:"),
                   bootstyle="outline", width=btn_width).pack(side="left", padx=2)
         tb.Button(quick_btns, text="WiFi", command=self.add_wifi_config,
                   bootstyle="outline", width=btn_width).pack(side="left", padx=2)
@@ -193,6 +194,7 @@ class QRGeneratorApp:
         self.history_listbox.column("date", width=100)
         self.history_listbox.column("content", width=200)
         self.history_listbox.pack(fill="both", expand=True)
+        self.history_listbox.bind("<Double-1>", self.on_history_item_double_click)
 
         self.status_frame = tb.Frame(self.root, bootstyle="light")
         self.status_frame.pack(fill="x", padx=10, pady=(0, 5))
@@ -202,6 +204,11 @@ class QRGeneratorApp:
         self.progress = tb.Progressbar(self.status_frame, mode="determinate", bootstyle="info-striped")
         self.progress.pack(side="right", padx=(5, 0))
         self.update_status("Ready to generate QR codes")
+
+    def set_content_prefix(self, prefix: str) -> None:
+        """Set the content prefix for the URL entry."""
+        self.url_entry.delete(0, "end")
+        self.url_entry.insert(0, prefix)
 
     def update_color_ui(self, color: str, entry_widget: tb.Entry, button_widget: tb.Button) -> None:
         entry_widget.delete(0, "end")
@@ -346,7 +353,8 @@ class QRGeneratorApp:
 
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             content_preview = url[:30] + "..." if len(url) > 30 else url
-            self.history_listbox.insert("", "end", values=(timestamp, content_preview))
+            item_id = self.history_listbox.insert("", "end", values=(timestamp, content_preview))
+            self.history_data[item_id] = {"image": self.generated_img.copy(), "content": url}
 
             self.update_qr_preview(img)
             self.save_btn.config(state="normal")
@@ -357,6 +365,18 @@ class QRGeneratorApp:
             messagebox.showerror("Error", f"Failed to generate QR code: {str(e)}")
             self.progress["value"] = 0
             self.update_status("Error generating QR Code")
+
+    def on_history_item_double_click(self, event) -> None:
+        selected_items = self.history_listbox.selection()
+        if selected_items:
+            item_id = selected_items[0]
+            history_item = self.history_data.get(item_id)
+            if history_item:
+                img = history_item["image"]
+                self.generated_img = img  # update current image if needed
+                self.current_qr_data = history_item["content"]
+                self.update_qr_preview(img)
+                self.update_status("Recalled QR code from history.")
 
     def update_qr_preview(self, img) -> None:
         self.qr_canvas.delete("all")
