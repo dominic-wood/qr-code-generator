@@ -72,7 +72,7 @@ The project is organised into two main modules:
    - Copy the QR code image to the clipboard. 
    - Double-click a history entry to recall a previously generated QR code.
    - Use the **Test QR Code** button to open the URL in your browser or display the content.
-   
+
 ## Customisation Options
 | Parameter | Description | Default Value |
 | :--- | :--- | :--- |
@@ -85,10 +85,10 @@ The project is organised into two main modules:
 | Logo | Optional image overlay in centre | None |
 
 ## Troubleshooting
-* **"Invalid URL" error**: Ensure full protocol is included (e.g. `https://example.com`)
-* **Colour not displaying properly**: Use valid hex values (e.g. `#FF0000`) or colour picker
-* **QR not displaying logo**: Ensure the image is a supported format (PNG, JPG, BMP, etc.)
-* **Copy to clipboard fails**: Clipboard support may depend on OS and Python version
+- **"Invalid URL" error**: Ensure full protocol is included (e.g. `https://example.com`)
+- **Colour not displaying properly**: Use valid hex values (e.g. `#FF0000`) or colour picker
+- **QR not displaying logo**: Ensure the image is a supported format (PNG, JPG, BMP, etc.)
+- **Copy to clipboard fails**: Clipboard support may depend on OS and Python version
 
 ## Contributing
 Contributions are welcome! Feel free to open issues, suggest features, or submit pull requests.
