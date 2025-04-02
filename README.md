@@ -21,6 +21,10 @@ The project is organised into two main modules:
 - `qr-generator.py`: Contains the core logic for generating QR codes usign the `qrcode` and `pillow` libraries, along with a simplified SVG export function.
 - `app.py`: Houses the graphical user interface with `tkinter` and `ttkbootstrap`. This module manages user interactions, including content prefix management, design customisation, history mangagment, and clipboard operations.
 
+## 🖼️ Interface
+
+![QR Code Generator Preview](<qr_preview.png>)
+
 ## Requirements
 
 - Python 3.6+
