@@ -17,6 +17,9 @@ class QRGeneratorApp:
         self.root.geometry("800x900")
         self.root.resizable(True, True)
         self.root.minsize(700, 800)
+
+        icon_image = Image.open("assets/qr-code-app.png")
+        self.root.iconphoto(True, ImageTk.PhotoImage(icon_image))
         self.history_data = {}
 
         # Instance variables
