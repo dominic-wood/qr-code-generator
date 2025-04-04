@@ -25,7 +25,7 @@ The project is organised into two main modules:
 
 ## 🖼️ Interface
 
-![QR Code Generator Preview](<qr_preview.png>)
+![QR Code Generator Preview](<assets/qr_preview.png>)
 
 ## ⚙️ Requirements
 
